@@ -9,7 +9,6 @@ Dbconnection();
 
 app.use(express.json());
 app.use("/api", taskRoutes);
-app.get("/test", (req, res) => res.send("Server is running"));
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
