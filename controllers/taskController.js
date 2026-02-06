@@ -43,24 +43,44 @@ exports.updateTask = async (req, res) => {
 };
 
 // Update task status
+// exports.updateTaskStatus = async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const { status } = req.body;
+//       const task = await Task.findByIdAndUpdate(
+//       id,
+//       { status },
+//       { new: true }
+//     );
+//         if (!task) {
+//             return res.status(404).json({ message: "Task not found" });
+//         }
+//         task.status = status;
+//         await task.save();
+//         res.status(200).json(task);
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// };
 exports.updateTaskStatus = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { status } = req.body;
-      const task = await Task.findByIdAndUpdate(
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const task = await Task.findByIdAndUpdate(
       id,
       { status },
       { new: true }
     );
-        if (!task) {
-            return res.status(404).json({ message: "Task not found" });
-        }
-        task.status = status;
-        await task.save();
-        res.status(200).json(task);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
     }
+
+    res.status(200).json(task);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update status" });
+  }
 };
 
 // Delete a task
