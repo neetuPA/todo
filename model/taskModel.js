@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const taskSchema = new mongoose.Schema({
-   id: {
-    type: String,
-    unique: true,
-    default: () => new Date().getTime().toString(), 
-  },
+  //  id: {
+  //   type: String,
+  //   unique: true,
+  //   default: () => new Date().getTime().toString(), 
+  // },
   title: {
     type: String,
     required: true
