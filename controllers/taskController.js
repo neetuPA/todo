@@ -1,7 +1,7 @@
 
 const Task=require("../model/taskModel")
 
-
+const mongoose = require("mongoose");
 // Create a new task
 exports.createTask = async (req, res) => {
     try {
