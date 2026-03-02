@@ -27,6 +27,9 @@ exports.getAllTasks = async (req, res) => {
 exports.updateTask = async (req, res) => {
     try {
         const { id } = req.params;
+            const allTasks = await Task.find();
+    console.log("All IDs in DB:");
+    allTasks.forEach(t => console.log(t._id.toString()));
         const { title, date } = req.body;
         const task = await Task.findOneAndUpdate(
             { id },
@@ -45,6 +48,9 @@ exports.updateTask = async (req, res) => {
 exports.updateTaskStatus = async (req, res) => {
   try {
     const { id } = req.params;
+          const allTasks = await Task.find();
+    console.log("All IDs in DB:");
+    allTasks.forEach(t => console.log(t._id.toString()));
     const { status } = req.body;
 
     const task = await Task.findByIdAndUpdate(
@@ -67,9 +73,9 @@ exports.updateTaskStatus = async (req, res) => {
 exports.deleteTask = async (req, res) => {
     try {
         const { id } = req.params;
-           if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid ID format" });
-    }
+          const allTasks = await Task.find();
+    console.log("All IDs in DB:");
+    allTasks.forEach(t => console.log(t._id.toString()));
         const task = await Task.findOneAndDelete({ id });
         if (!task) {
             return res.status(404).json({ message: "Task not found" });
