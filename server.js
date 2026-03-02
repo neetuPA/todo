@@ -13,6 +13,9 @@ app.use(cors({
 app.use(express.json());
 app.use("/api/tasks", taskRoutes);
 const PORT = process.env.PORT || 3000;
+app.get("/test", (req, res) => {
+  res.send("Server is updated");
+});
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   
