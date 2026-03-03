@@ -24,18 +24,21 @@ exports.getAllTasks = async (req, res) => {
 };
 
 // Update task
+// ... (imports)
+
+// Update task
 exports.updateTask = async (req, res) => {
     try {
         const { id } = req.params;
-            const allTasks = await Task.find();
-    console.log("All IDs in DB:");
-    allTasks.forEach(t => console.log(t._id.toString()));
         const { title, date } = req.body;
+        
+        // FIX: Change { id } to { _id: id }
         const task = await Task.findOneAndUpdate(
-            { id },
+            { _id: id }, 
             { title, date },
             { new: true }
         );
+        
         if (!task) {
             return res.status(404).json({ message: "Task not found" });
         }
@@ -44,6 +47,45 @@ exports.updateTask = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+
+// Delete a task
+exports.deleteTask = async (req, res) => {
+    try {
+        const { id } = req.params;
+        
+        // FIX: Change { id } to { _id: id }
+        const task = await Task.findOneAndDelete({ _id: id });
+        
+        if (!task) {
+            return res.status(404).json({ message: "Task not found" });
+        }
+        res.status(200).json({ message: "Task deleted successfully" });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// ... (rest of your code)
+// exports.updateTask = async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//             const allTasks = await Task.find();
+//     console.log("All IDs in DB:");
+//     allTasks.forEach(t => console.log(t._id.toString()));
+//         const { title, date } = req.body;
+//         const task = await Task.findOneAndUpdate(
+//             { id },
+//             { title, date },
+//             { new: true }
+//         );
+//         if (!task) {
+//             return res.status(404).json({ message: "Task not found" });
+//         }
+//         res.status(200).json(task);
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// };
 
 exports.updateTaskStatus = async (req, res) => {
   try {
@@ -70,21 +112,21 @@ exports.updateTaskStatus = async (req, res) => {
 };
 
 // Delete a task
-exports.deleteTask = async (req, res) => {
-    try {
-        const { id } = req.params;
-          const allTasks = await Task.find();
-    console.log("All IDs in DB:");
-    allTasks.forEach(t => console.log(t._id.toString()));
-        const task = await Task.findOneAndDelete({ id });
-        if (!task) {
-            return res.status(404).json({ message: "Task not found" });
-        }
-        res.status(200).json({ message: "Task deleted successfully" });
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-};
+// exports.deleteTask = async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//           const allTasks = await Task.find();
+//     console.log("All IDs in DB:");
+//     allTasks.forEach(t => console.log(t._id.toString()));
+//         const task = await Task.findOneAndDelete({ id });
+//         if (!task) {
+//             return res.status(404).json({ message: "Task not found" });
+//         }
+//         res.status(200).json({ message: "Task deleted successfully" });
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// };
 exports.getTaskById = async (req, res) => {
   try {
     const { id } = req.params;
